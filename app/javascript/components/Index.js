@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Tea from "./Tea";
 import Topcomponent from "./Topcomponent";
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
+
 const Index = props => {
   return (
     <React.Fragment>

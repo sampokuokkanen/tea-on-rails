@@ -1,16 +1,30 @@
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import axios from 'axios';
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import axios from 'axios'
-import { RSA_PKCS1_OAEP_PADDING } from "constants";
+import posed from 'react-pose';
 
-const StyledView = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-`;
+const divProps = {
+  open: { opacity: 1 },
+  closed: { opacity: 0.7 },
+}
+const Icon = posed(FavoriteIcon)({
+  open: { opacity: 1 },
+  closed: { opacity: 0.7 },
+})
+const StyledPosedView = styled(posed.div(divProps))`
+display: flex;
+min-height: 100vh;
+flex-direction: column;
+padding: 1rem;
+`
+
+const StyledBottom = styled(SimpleBottomNavigation)`
+position: sticky; 
+margin-top: 200px;
+`
 
 const StyledP = styled.p`
   font-sze: 2em;
@@ -18,6 +32,7 @@ const StyledP = styled.p`
 
 const Tea = ({ tea }) => {
   const [liked, setLike] = useState(tea.liked)
+  const [hovering, setHover] = useState(false)
 
   const handleInsertIntoFavorites = (id) => {
     let tea = {
@@ -34,13 +49,17 @@ const Tea = ({ tea }) => {
   } 
   return (
     <React.Fragment>
-      <StyledView>
+      <StyledPosedView pose={liked ? 'open' : 'closed'}>
         <StyledP>Name: {tea.name}</StyledP>
         <StyledP>Description: {tea.description}</StyledP>
         <StyledP>Origin: {tea.origin}</StyledP>
-        <FavoriteIcon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id)}/>
-        <SimpleBottomNavigation />
-      </StyledView>
+        <Icon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id)}
+        pose={hovering ? "open" : "closed"}
+        onMouseEnter={() => setHover({ hovering: true })}
+        onMouseLeave={() => setHover({ hovering: false })}
+        />
+        <StyledBottom style="bottom: 0"/>
+      </StyledPosedView>
     </React.Fragment>
   );
 };

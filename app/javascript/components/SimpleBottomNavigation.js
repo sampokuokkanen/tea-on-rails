@@ -9,8 +9,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    display: 'flex',
-    flex: 1,
+    position: 'absolute',
     bottom: 0,
   },
 });
@@ -29,7 +28,9 @@ export default function SimpleBottomNavigation() {
       className={classes.root}
     >
       <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+      <a href="/teas/favorites">
+        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+      </a>
       <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
     </BottomNavigation>
   );

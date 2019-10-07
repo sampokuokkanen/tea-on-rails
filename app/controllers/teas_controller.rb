@@ -1,5 +1,7 @@
 class TeasController < ApplicationController
   def index
+    teas = Tea.all
+    render component: 'TeaIndex', props: { teas: teas }
   end
 
   def show
@@ -11,8 +13,13 @@ class TeasController < ApplicationController
   def create
   end
 
+  def favorites
+    teas = Tea.where(id: Like.where(user_id: current_user.id).pluck(:tea_id))
+    render component: 'Favorites', props: { teas: teas }
+  end
+
   def add_to_favorites
-    if Like.where(user_id: current_user.id, tea_id: params[:tea]).exists?
+    if Like.find_by_user_id_and_tea_id(current_user.id, params[:tea]).blank?
       Like.where(user_id: current_user.id, tea_id: params[:tea]).destroy_all
     else
       Like.create!(user_id: current_user.id, tea_id: params[:tea])

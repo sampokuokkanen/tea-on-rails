@@ -26,7 +26,7 @@ const TeaCube = ({ tea }) => {
     let tea = {
       tea: id
     }
-    console.log("here now")
+    console.log(tea)
     const csrfToken = document.querySelector('[name="csrf-token"]').content;
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
   

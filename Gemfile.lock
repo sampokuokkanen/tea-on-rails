@@ -85,6 +85,8 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-webpacker-precompile (0.2)
+      capistrano (~> 3.1)
     capistrano3-puma (3.1.1)
       capistrano (~> 3.7)
       capistrano-bundler
@@ -322,6 +324,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails
   capistrano-rvm
+  capistrano-webpacker-precompile
   capistrano3-puma
   devise
   faker

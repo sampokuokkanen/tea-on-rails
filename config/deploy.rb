@@ -32,15 +32,6 @@ set :yarn_flags, "--prefer-offline --production --no-progress"
 set :yarn_roles, :app
 after 'deploy:updated', 'webpacker:precompile'
 
-
-namespace :webpack do
-  after "yarn:install", "webpack:build"
-  task :build do
-    on roles(:app) do
-      execute "cd #{release_path} && yarn run build:prod"
-    end
-  end
-end
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

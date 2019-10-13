@@ -28,11 +28,19 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
-after 'deploy:updated', 'webpacker:install'
-after 'webpacker:install', 'webpacker:precompile'
+set :yarn_flags, "--prefer-offline --production --no-progress"
+set :yarn_roles, :app
+after 'deploy:updated', 'webpacker:precompile'
 
-before "deploy:assets:precompile", "deploy:yarn_install"
 
+namespace :webpack do
+  after "yarn:install", "webpack:build"
+  task :build do
+    on roles(:app) do
+      execute "cd #{release_path} && #{fetch :yarn_bin} run build:prod"
+    end
+  end
+end
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

@@ -23,5 +23,8 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",
     "webpack-dev-server": "^3.8.2"
+  },
+  "scripts": {
+    "build:prod": "webpack --mode production --config webpack.config.js",
   }
 }

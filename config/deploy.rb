@@ -30,7 +30,6 @@ set :puma_init_active_record, true
 set :puma_preload_app, false
 set :yarn_flags, "--prefer-offline --production --no-progress"
 set :yarn_roles, :app
-after 'deploy:updated', 'webpacker:precompile'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

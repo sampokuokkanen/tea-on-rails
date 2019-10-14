@@ -15,7 +15,6 @@ class TeasController < ApplicationController
 
   def favorites
     teas = check_if_liked(Tea.where(id: Like.where(user_id: current_user.id).pluck(:tea_id)))
-    byebug
     render component: 'Favorites', props: { teas: teas }
   end
 

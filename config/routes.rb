@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  mount RailsAdmin::Engine => '/tea_master', as: 'rails_admin'
   get 'teas/index'
   get 'teas/create'
   devise_for :users

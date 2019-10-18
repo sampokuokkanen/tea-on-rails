@@ -19,7 +19,8 @@ const StyledP = styled.p`
   font-sze: 2em;
 `;
 
-const TeaCube = ({ tea }) => {
+const TeaCube = (props) => {
+  const tea = props.tea
   const [liked, setLike] = useState(tea.liked)
 
   const handleInsertIntoFavorites = (id) => {
@@ -31,6 +32,7 @@ const TeaCube = ({ tea }) => {
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
   
     axios.post('/teas', tea).then((response) => {
+      props.handleOpen()
       console.log(response)
       setLike(!liked)
     });

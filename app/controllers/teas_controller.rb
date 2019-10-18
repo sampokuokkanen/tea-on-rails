@@ -19,6 +19,8 @@ class TeasController < ApplicationController
   end
 
   def add_to_favorites
+    return if current_user.nil?
+
     if Like.find_by_user_id_and_tea_id(current_user.id, params[:tea]).blank?
       Like.create!(user_id: current_user.id, tea_id: params[:tea])
     else

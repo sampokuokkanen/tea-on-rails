@@ -27,14 +27,16 @@ const TeaCube = (props) => {
     let tea = {
       tea: id
     }
-    console.log(tea)
     const csrfToken = document.querySelector('[name="csrf-token"]').content;
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
   
     axios.post('/teas', tea).then((response) => {
-      props.handleOpen()
-      console.log(response)
-      setLike(!liked)
+      if (response.data === "") {
+        props.handleOpen();
+      } else {
+        console.log(response)
+        setLike(!liked)
+      }
     });
   } 
   return (

@@ -10,8 +10,22 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+<style>
+    ul.hmenu {
+      list-style: none;	
+      margin: 0 0 2em;
+      padding: 0;
+    }
+    
+    ul.hmenu li {
+      display: inline;  
+    }
+</style>
   <body style="height: 100vh; width: 100vw;">
+      <ul class="hmenu">
+          <%= render 'devise/menu/registration_items' %>
+          <%= render 'devise/menu/login_items' %>
+      </ul>
     <%= yield %>
   </body>
 </html>

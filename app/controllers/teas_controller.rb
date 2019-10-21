@@ -22,10 +22,11 @@ class TeasController < ApplicationController
     return if current_user.nil?
 
     if Like.find_by_user_id_and_tea_id(current_user.id, params[:tea]).blank?
-      Like.create!(user_id: current_user.id, tea_id: params[:tea])
+      tea = Like.create!(user_id: current_user.id, tea_id: params[:tea])
     else
-      Like.where(user_id: current_user.id, tea_id: params[:tea]).destroy_all
+      tea = Like.find_by(user_id: current_user.id, tea_id: params[:tea]).destroy
     end
+    render json: tea.destroyed?
   end
 
   private

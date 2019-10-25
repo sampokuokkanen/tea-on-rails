@@ -1,4 +1,5 @@
 class TeasController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :add_to_favorites]
   def index
     teas = check_if_liked(Tea.all)
     render component: 'TeaIndex', props: { teas: teas }
@@ -6,7 +7,7 @@ class TeasController < ApplicationController
 
   def show
     tea = check_if_liked(Tea.find_by_id(params[:id]))
-    tea.liked = Like.where(user_id: current_user.id, tea_id: tea.id).exists?
+    tea.liked = Like.where(user_id: current_user.id, tea_id: tea.id).exists? unless current_user.nil?
     render component: 'Tea', props: { tea: tea }
   end
 
@@ -19,15 +20,20 @@ class TeasController < ApplicationController
   end
 
   def add_to_favorites
+    return if current_user.nil?
+
     if Like.find_by_user_id_and_tea_id(current_user.id, params[:tea]).blank?
-      Like.create!(user_id: current_user.id, tea_id: params[:tea])
+      tea = Like.create!(user_id: current_user.id, tea_id: params[:tea])
     else
-      Like.where(user_id: current_user.id, tea_id: params[:tea]).destroy_all
+      tea = Like.find_by(user_id: current_user.id, tea_id: params[:tea]).destroy
     end
+    render json: tea.destroyed?
   end
 
   private
   def check_if_liked(teas)
+    return teas if current_user.nil?
+
     teas.each do |tea|
       tea.liked = Like.where(user_id: current_user.id, tea_id: tea.id).exists?
     end

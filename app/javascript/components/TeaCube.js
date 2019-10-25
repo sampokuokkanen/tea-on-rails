@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import axios from 'axios'
 
 const StyledView = styled.div`
   display: flex;
@@ -19,20 +18,24 @@ const StyledP = styled.p`
   font-sze: 2em;
 `;
 
-const TeaCube = ({ tea }) => {
+const TeaCube = (props) => {
+  const tea = props.tea
   const [liked, setLike] = useState(tea.liked)
 
   const handleInsertIntoFavorites = (id) => {
     let tea = {
       tea: id
     }
-    console.log(tea)
     const csrfToken = document.querySelector('[name="csrf-token"]').content;
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
   
     axios.post('/teas', tea).then((response) => {
-      console.log(response)
-      setLike(!liked)
+      if (response.data === "") {
+        props.handleOpen();
+      } else {
+        console.log(response)
+        setLike(!liked)
+      }
     });
   } 
   return (

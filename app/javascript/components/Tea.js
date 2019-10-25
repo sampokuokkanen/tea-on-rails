@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
 import posed from 'react-pose';
+import handleInsertIntoFavorites from './handleInsertIntoFavorites'
+import RegisterModal from './RegisterModal'
 
 const divProps = {
   open: { opacity: 1 },
@@ -33,32 +35,28 @@ const StyledP = styled.p`
 const Tea = ({ tea }) => {
   const [liked, setLike] = useState(tea.liked)
   const [hovering, setHover] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const handleInsertIntoFavorites = (id) => {
-    let tea = {
-      tea: id
-    }
-    console.log("here now")
-    const csrfToken = document.querySelector('[name="csrf-token"]').content;
-    axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
-  
-    axios.post('/teas', tea).then((response) => {
-      console.log(response)
-      setLike(!liked)
-    });
-  } 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <React.Fragment>
       <StyledPosedView pose={liked ? 'open' : 'closed'}>
         <StyledP>Name: {tea.name}</StyledP>
         <StyledP>Description: {tea.description}</StyledP>
         <StyledP>Origin: {tea.origin}</StyledP>
-        <Icon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id)}
+        <Icon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id, handleOpen, setLike)}
         pose={hovering ? "open" : "closed"}
         onMouseEnter={() => setHover({ hovering: true })}
         onMouseLeave={() => setHover({ hovering: false })}
         />
         <StyledBottom style="bottom: 0"/>
+        <RegisterModal open={open} handleClose={handleClose} />
       </StyledPosedView>
     </React.Fragment>
   );

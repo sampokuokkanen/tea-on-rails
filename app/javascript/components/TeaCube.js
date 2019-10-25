@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import axios from 'axios'
 
 const StyledView = styled.div`
   display: flex;

@@ -3,16 +3,21 @@ import PropTypes from "prop-types";
 import TeaCube from "./TeaCube";
 import Topcomponent from "./Topcomponent";
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  display: flex;
+`
 
 const Index = props => {
   return (
     <React.Fragment>
       <Topcomponent />
-      <ul>
-      {props.topcontent.map(tea => (
+      <StyledDiv>
+        {props.topcontent.map(tea => (
           <TeaCube key={tea.id} tea={tea} />
-        ))}
-      </ul>
+          ))}
+      </StyledDiv>
       <SimpleBottomNavigation />
     </React.Fragment>
   );

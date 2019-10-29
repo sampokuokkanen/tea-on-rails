@@ -22,12 +22,12 @@ class TeasController < ApplicationController
   def add_to_favorites
     return if current_user.nil?
 
-    if Like.find_by_user_id_and_tea_id(current_user.id, params[:tea]).blank?
-      tea = Like.create!(user_id: current_user.id, tea_id: params[:tea])
-    else
+    if Like.exists?(user_id: current_user.id, tea_id: params[:tea])
       tea = Like.find_by(user_id: current_user.id, tea_id: params[:tea]).destroy
+    else
+      tea = Like.create!(user_id: current_user.id, tea_id: params[:tea])
     end
-    render json: tea.destroyed?
+    render json: !tea.destroyed?
   end
 
   private

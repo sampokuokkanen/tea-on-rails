@@ -12,8 +12,7 @@ const handleInsertIntoFavorites = (id, handleOpen, setLiked) => {
       handleOpen();
     } else {
       console.log(response)
-      debugger
-      setLiked(response.data.liked)
+      setLiked(response.data)
 
     }
   });

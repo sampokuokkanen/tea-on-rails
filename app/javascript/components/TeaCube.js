@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import handleInsertIntoFavorites from './handleInsertIntoFavorites'
 
 const StyledView = styled.div`
   display: flex;
@@ -22,29 +23,13 @@ const TeaCube = (props) => {
   const tea = props.tea
   const [liked, setLike] = useState(tea.liked)
 
-  const handleInsertIntoFavorites = (id) => {
-    let tea = {
-      tea: id
-    }
-    const csrfToken = document.querySelector('[name="csrf-token"]').content;
-    axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
-  
-    axios.post('/teas', tea).then((response) => {
-      if (response.data === "") {
-        props.handleOpen();
-      } else {
-        console.log(response)
-        setLike(!liked)
-      }
-    });
-  } 
   return (
     <React.Fragment>
       <StyledView>
         <StyledP>Name: {tea.name}</StyledP>
         <StyledP>Description: {tea.description}</StyledP>
         <StyledP>Origin: {tea.origin}</StyledP>
-        <FavoriteIcon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id)}/>
+        <FavoriteIcon color={liked ? "secondary" : "primary"} onClick={() => handleInsertIntoFavorites(tea.id, props.handleOpen, setLike)}/>
       </StyledView>
     </React.Fragment>
   );

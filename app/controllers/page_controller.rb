@@ -2,7 +2,8 @@ class PageController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @topcontent = User.limit(2)
+    @topcontent = Tea.limit(2)
+    byebug
     render component: 'Index', props: { topcontent: @topcontent }
   end
 end

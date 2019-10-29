@@ -1,7 +1,7 @@
 import React from "react"
 import styled from 'styled-components'
 import TeaPhoto from '../../assets/images/tea.jpg'
-
+import TeaCube from "./TeaCube";
 const Topcomponent = (props) => {
   const StyledDiv = styled.div`
   border-bottom: 5px solid black;

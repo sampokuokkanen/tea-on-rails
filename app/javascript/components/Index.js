@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Tea from "./Tea";
+import TeaCube from "./TeaCube";
 import Topcomponent from "./Topcomponent";
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
 
@@ -9,8 +9,8 @@ const Index = props => {
     <React.Fragment>
       <Topcomponent />
       <ul>
-        {props.topcontent.map(user => (
-          <li key={user.id}>{`${user.f_name} ${user.l_name}`}</li>
+      {props.topcontent.map(tea => (
+          <TeaCube key={tea.id} tea={tea} />
         ))}
       </ul>
       <SimpleBottomNavigation />

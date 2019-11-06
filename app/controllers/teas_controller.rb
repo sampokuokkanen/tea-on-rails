@@ -7,7 +7,6 @@ class TeasController < ApplicationController
 
   def show
     tea = check_if_liked(Tea.find_by_id(params[:id]))
-    tea.liked = Like.where(user_id: current_user.id, tea_id: tea.id).exists? unless current_user.nil?
     render component: 'Tea', props: { tea: tea }
   end
 

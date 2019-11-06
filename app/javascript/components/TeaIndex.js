@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import TeaCube from "./TeaCube";
 import styled from "styled-components";
-import RegisterModal from './RegisterModal'
 import SimpleBottomNavigation from "./SimpleBottomNavigation";
 import posed from 'react-pose';
+import TeaModalContainer from './TeaModalContainer'
 
 const divProps = {
   open: {
@@ -19,15 +18,6 @@ const StyledView = styled(posed.div(divProps))`
 `
 
 const TeaIndex = props => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     setTimeout(setToggle(!toggle), 1000);
@@ -37,14 +27,8 @@ const TeaIndex = props => {
   return (
     <React.Fragment>
       <StyledView pose={toggle ? 'open' : 'closed'}>
-        {props.teas.map(tea => (
-          <TeaCube
-          handleOpen={handleOpen}
-          key={tea.id} 
-          tea={tea} />
-        ))}
+        <TeaModalContainer teas={props.teas} />
       </StyledView>
-      <RegisterModal open={open} handleClose={handleClose} />
       <SimpleBottomNavigation />
     </React.Fragment>
   );

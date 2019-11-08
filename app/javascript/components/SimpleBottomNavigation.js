@@ -4,7 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ListIcon from '@material-ui/icons/List';
 
 const useStyles = makeStyles({
   root: {
@@ -27,11 +27,16 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
+      <a href="/">
       <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+      </a>
+      <a href="/teas">
+      <BottomNavigationAction label="Nearby" icon={<ListIcon />} />
+      </a>
       <a href="/teas/favorites">
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
       </a>
-      <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+
     </BottomNavigation>
   );
 }
